@@ -1,0 +1,567 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="io_bankStatementPath" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_cusRefColumn" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_policyNoColumn" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_desColumn" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_transactions" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="io_sheetName" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_bookingRule" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="io_mofAccountColumn" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_bankName" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_dbConnection" Type="InOutArgument(ui:DatabaseConnection)" />
+    <x:Property Name="io_code" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_policyNo" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_channel" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_gaName" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_bankBook" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="io_transaction" Type="InOutArgument(sd:DataRow)" />
+    <x:Property Name="in_transactionIndex" Type="InArgument(x:Int32)" />
+    <x:Property Name="io_creditDateColumn" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_mofAccount" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_clearCashAdvance" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_branchNameColumn" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_creditAmountColumn" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_debitAmountColumn" Type="InOutArgument(x:String)" />
+    <x:Property Name="io_notFoundList" Type="InOutArgument(sd:DataTable)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>220,112.8</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="42">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Database</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>UiPath.Excel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="34">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Flowchart sap:VirtualizedContainerService.HintSize="1153.6,1380.8" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="countBankStatementFile" />
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="countTransactionIndex" />
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="countBankBookIndex" />
+    </Flowchart.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <av:Point x:Key="ShapeLocation">490,2.4</av:Point>
+        <av:Size x:Key="ShapeSize">60,75.2</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">520,77.6 520,103.6</av:PointCollection>
+        <x:Double x:Key="Height">1343.6000000000001</x:Double>
+        <x:Double x:Key="Width">1120</x:Double>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Flowchart.StartNode>
+      <x:Reference>__ReferenceID17</x:Reference>
+    </Flowchart.StartNode>
+    <FlowStep x:Name="__ReferenceID0">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">420,303.6</av:Point>
+          <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">520,356.4 520,393.6</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Get Bank Statements workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="System1\Get Bank Statements.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_bankStatementPath">[io_bankStatementPath]</OutArgument>
+          <InArgument x:TypeArguments="x:Int32" x:Key="in_count">[countBankStatementFile]</InArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeWorkflowFile>
+      <FlowStep.Next>
+        <FlowStep x:Name="__ReferenceID3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">420,393.6</av:Point>
+              <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+              <av:PointCollection x:Key="ConnectorLocation">520,446.4 520,493.6</av:PointCollection>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Get All Transactions workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="System1\Get All Transactions.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_cusRefColumn">[io_cusRefColumn]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_policyNoColumn">[io_policyNoColumn]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_desColumn">[io_desColumn]</OutArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_transactions">[io_transactions]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_sheetName">[io_sheetName]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_mofAccountColumn">[io_mofAccountColumn]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_bankName">[io_bankName]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_bankStatementPath">[io_bankStatementPath]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_creditDateColumn">[io_creditDateColumn]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_branchNameColumn">[io_branchNameColumn]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_creditAmountColumn">[io_creditAmountColumn]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_debitAmountColumn">[io_debitAmountColumn]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:InvokeWorkflowFile>
+          <FlowStep.Next>
+            <FlowStep x:Name="__ReferenceID1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <av:Point x:Key="ShapeLocation">420,493.6</av:Point>
+                  <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                  <av:PointCollection x:Key="ConnectorLocation">520,546.4 520,603.6</av:PointCollection>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Get Transaction workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="System1\Get Transaction.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="x:Int32" x:Key="in_transactionIndex">[countTransactionIndex]</InArgument>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="in_transactions">[io_transactions]</InArgument>
+                  <OutArgument x:TypeArguments="sd:DataRow" x:Key="out_transaction">[io_transaction]</OutArgument>
+                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_bankBook">[io_bankBook]</InOutArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_desColumn">[io_desColumn]</InArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:InvokeWorkflowFile>
+              <FlowStep.Next>
+                <FlowStep x:Name="__ReferenceID4">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <av:Point x:Key="ShapeLocation">420,603.6</av:Point>
+                      <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                      <av:PointCollection x:Key="ConnectorLocation">520,656.4 520,696.4</av:PointCollection>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Split GA transaction workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="System1\Split GA transaction.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InOutArgument x:TypeArguments="sd:DataTable" x:Key="in_transations">[io_transactions]</InOutArgument>
+                      <InArgument x:TypeArguments="x:Int32" x:Key="in_transactionIndex">[countTransactionIndex]</InArgument>
+                      <InOutArgument x:TypeArguments="ui:DatabaseConnection" x:Key="out_dbConnection">[io_dbConnection]</InOutArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_cusRefColumn">[io_cusRefColumn]</InArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="out_gaName">[io_gaName]</OutArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_desColumn">[io_desColumn]</InArgument>
+                      <InOutArgument x:TypeArguments="sd:DataRow" x:Key="in_transaction">[io_transaction]</InOutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="out_clearCashAdvance">[io_clearCashAdvance]</OutArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:InvokeWorkflowFile>
+                  <FlowStep.Next>
+                    <FlowDecision x:Name="__ReferenceID5" Condition="[io_gaName = &quot;NOT FOUND&quot; Or io_gaName = &quot;&quot;]" DisplayName="GA Not Found?" sap:VirtualizedContainerService.HintSize="86.4,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <av:Point x:Key="ShapeLocation">476.8,696.4</av:Point>
+                          <av:Size x:Key="ShapeSize">86.4,87.2</av:Size>
+                          <av:PointCollection x:Key="TrueConnector">476.8,740 360,740 360,793.6</av:PointCollection>
+                          <av:PointCollection x:Key="FalseConnector">563.2,740 640,740 640,793.6</av:PointCollection>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <FlowDecision.True>
+                        <FlowStep x:Name="__ReferenceID6">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <av:Point x:Key="ShapeLocation">260,793.6</av:Point>
+                              <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                              <av:PointCollection x:Key="ConnectorLocation">460,820 540,820</av:PointCollection>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Split Policy and Channel workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="System1\Split Policy and Channel.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="sd:DataRow" x:Key="in_transaction">[io_transaction]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_desColumn">[io_desColumn]</InArgument>
+                              <OutArgument x:TypeArguments="x:String" x:Key="out_code">[io_code]</OutArgument>
+                              <OutArgument x:TypeArguments="x:String" x:Key="out_policyNo">[io_policyNo]</OutArgument>
+                              <OutArgument x:TypeArguments="x:String" x:Key="out_channel">[io_channel]</OutArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:InvokeWorkflowFile>
+                          <FlowStep.Next>
+                            <FlowStep x:Name="__ReferenceID2">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <av:Point x:Key="ShapeLocation">540,793.6</av:Point>
+                                  <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                                  <av:PointCollection x:Key="ConnectorLocation">640,846.4 640,903.6</av:PointCollection>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Insert Policy No GA Channel workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="System1\Insert Policy No GA Channel.xaml">
+                                <ui:InvokeWorkflowFile.Arguments>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_channel">[io_channel]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_policyNo">[io_policyNo]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_gaName">[io_gaName]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_sheetName">[io_sheetName]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_policyNoColumn">[io_policyNoColumn]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_bankStatementPath">[io_bankStatementPath]</InArgument>
+                                  <InArgument x:TypeArguments="x:Int32" x:Key="in_countTransactionIndex">[countTransactionIndex]</InArgument>
+                                  <InArgument x:TypeArguments="sd:DataRow" x:Key="in_transaction">[io_transaction]</InArgument>
+                                  <InOutArgument x:TypeArguments="x:String" x:Key="io_code">[io_code]</InOutArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_clearCashAdvance">[io_clearCashAdvance]</InArgument>
+                                </ui:InvokeWorkflowFile.Arguments>
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                              </ui:InvokeWorkflowFile>
+                              <FlowStep.Next>
+                                <FlowStep x:Name="__ReferenceID7">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <av:Point x:Key="ShapeLocation">540,903.6</av:Point>
+                                      <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                                      <av:PointCollection x:Key="ConnectorLocation">640,956.4 640,993.6</av:PointCollection>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Verify and Insert MOF Account workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="System1\Verify and Insert MOF Account.xaml">
+                                    <ui:InvokeWorkflowFile.Arguments>
+                                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_dbConnection">[io_dbConnection]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="in_mofAccountColumn">[io_mofAccountColumn]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="in_bankName">[io_bankName]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="in_bankStatementPath">[io_bankStatementPath]</InArgument>
+                                      <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_bookingRule">[io_bookingRule]</OutArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="in_sheetName">[io_sheetName]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="in_code">[io_code]</InArgument>
+                                      <InArgument x:TypeArguments="x:Int32" x:Key="in_countTransactionIndex">[countTransactionIndex]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="in_gaName">[io_gaName]</InArgument>
+                                      <OutArgument x:TypeArguments="x:String" x:Key="out_mofAccount">[io_mofAccount]</OutArgument>
+                                    </ui:InvokeWorkflowFile.Arguments>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </ui:InvokeWorkflowFile>
+                                  <FlowStep.Next>
+                                    <FlowStep x:Name="__ReferenceID13">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <av:Point x:Key="ShapeLocation">540,993.6</av:Point>
+                                          <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                                          <av:PointCollection x:Key="ConnectorLocation">740,1020 890,1020 890,1116.4</av:PointCollection>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Set Bank Book Transaction workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="System1\Set Bank Book Transaction.xaml">
+                                        <ui:InvokeWorkflowFile.Arguments>
+                                          <InArgument x:TypeArguments="sd:DataTable" x:Key="in_bankBook">[io_bankBook]</InArgument>
+                                          <InArgument x:TypeArguments="sd:DataRow" x:Key="in_transaction">[io_transaction]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_creditDateColumn">[io_creditDateColumn]</InArgument>
+                                          <InOutArgument x:TypeArguments="x:Int32" x:Key="in_countTransactionIndex">[countTransactionIndex]</InOutArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_mofAccount">[io_mofAccount]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_desColumn">[io_desColumn]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_code">[io_code]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_gaName">[io_gaName]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_bankName">[io_bankName]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_policyNo">[io_policyNo]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_branchNameColumn">[io_branchNameColumn]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_creditAmountColumn">[io_creditAmountColumn]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_debitAmountColumn">[io_debitAmountColumn]</InArgument>
+                                          <InArgument x:TypeArguments="x:Int32" x:Key="in_countBankBookIndex">[countBankBookIndex]</InArgument>
+                                          <InArgument x:TypeArguments="sd:DataTable" x:Key="in_bookingRule">[io_bookingRule]</InArgument>
+                                          <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_notFoundList">[io_notFoundList]</InOutArgument>
+                                        </ui:InvokeWorkflowFile.Arguments>
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:InvokeWorkflowFile>
+                                      <FlowStep.Next>
+                                        <FlowDecision x:Name="__ReferenceID8" Condition="[countTransactionIndex &gt;= io_transactions.Rows.Count]" DisplayName="No More Transaction?" sap:VirtualizedContainerService.HintSize="121.6,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              <av:Point x:Key="ShapeLocation">829.2,1116.4</av:Point>
+                                              <av:Size x:Key="ShapeSize">121.6,87.2</av:Size>
+                                              <av:PointCollection x:Key="FalseConnector">950.8,1160 980.8,1160 980.8,520 930,520</av:PointCollection>
+                                              <av:PointCollection x:Key="TrueConnector">829.2,1160 740,1160</av:PointCollection>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <FlowDecision.True>
+                                            <FlowStep x:Name="__ReferenceID12">
+                                              <sap:WorkflowViewStateService.ViewState>
+                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                  <av:Point x:Key="ShapeLocation">540,1133.6</av:Point>
+                                                  <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                                                  <av:PointCollection x:Key="ConnectorLocation">540,1160 460,1160</av:PointCollection>
+                                                </scg:Dictionary>
+                                              </sap:WorkflowViewStateService.ViewState>
+                                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Insert Bank Book workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="System1/Insert Bank Book.xaml">
+                                                <ui:InvokeWorkflowFile.Arguments>
+                                                  <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_dbConnection">[io_dbConnection]</InArgument>
+                                                  <InArgument x:TypeArguments="sd:DataTable" x:Key="in_bankBook">[io_bankBook]</InArgument>
+                                                </ui:InvokeWorkflowFile.Arguments>
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                              </ui:InvokeWorkflowFile>
+                                              <FlowStep.Next>
+                                                <FlowStep x:Name="__ReferenceID9">
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <av:Point x:Key="ShapeLocation">260,1125.6</av:Point>
+                                                      <av:Size x:Key="ShapeSize">200,68.8</av:Size>
+                                                      <av:PointCollection x:Key="ConnectorLocation">360,1194.4 360,1256.4</av:PointCollection>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                  <Sequence DisplayName="Increase bank statement count" sap:VirtualizedContainerService.HintSize="304,252.8" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                                                    <sap:WorkflowViewStateService.ViewState>
+                                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                      </scg:Dictionary>
+                                                    </sap:WorkflowViewStateService.ViewState>
+                                                    <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                                                      <Assign.To>
+                                                        <OutArgument x:TypeArguments="x:Int32">[countBankStatementFile]</OutArgument>
+                                                      </Assign.To>
+                                                      <Assign.Value>
+                                                        <InArgument x:TypeArguments="x:Int32">[countBankStatementFile + 1]</InArgument>
+                                                      </Assign.Value>
+                                                    </Assign>
+                                                    <Assign sap:VirtualizedContainerService.HintSize="262.4,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                                                      <Assign.To>
+                                                        <OutArgument x:TypeArguments="x:Int32">[countTransactionIndex]</OutArgument>
+                                                      </Assign.To>
+                                                      <Assign.Value>
+                                                        <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                                                      </Assign.Value>
+                                                    </Assign>
+                                                  </Sequence>
+                                                  <FlowStep.Next>
+                                                    <FlowDecision x:Name="__ReferenceID10" Condition="[countBankStatementFile &lt; Directory.GetFiles(&quot;C:\Users\Quang-Huong-PC\Desktop\Bank Statements&quot;).Length]" DisplayName="More Bank Statement file?" sap:VirtualizedContainerService.HintSize="145.6,87.2" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
+                                                      <sap:WorkflowViewStateService.ViewState>
+                                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                          <av:Point x:Key="ShapeLocation">287.2,1256.4</av:Point>
+                                                          <av:Size x:Key="ShapeSize">145.6,87.2</av:Size>
+                                                          <av:PointCollection x:Key="FalseConnector">432.8,1300 520,1300</av:PointCollection>
+                                                          <av:PointCollection x:Key="TrueConnector">287.2,1300 257.2,1300 257.2,240 420,240</av:PointCollection>
+                                                        </scg:Dictionary>
+                                                      </sap:WorkflowViewStateService.ViewState>
+                                                      <FlowDecision.True>
+                                                        <FlowStep x:Name="__ReferenceID11">
+                                                          <sap:WorkflowViewStateService.ViewState>
+                                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                              <av:Point x:Key="ShapeLocation">420,213.6</av:Point>
+                                                              <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                                                              <av:PointCollection x:Key="ConnectorLocation">520,266.4 520,303.6</av:PointCollection>
+                                                            </scg:Dictionary>
+                                                          </sap:WorkflowViewStateService.ViewState>
+                                                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Build Bank Book DataTable" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="System1\Build Bank Book.xaml">
+                                                            <ui:InvokeWorkflowFile.Arguments>
+                                                              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="out_bankBook">[io_bankBook]</InOutArgument>
+                                                              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="out_notFoundList">[io_notFoundList]</InOutArgument>
+                                                            </ui:InvokeWorkflowFile.Arguments>
+                                                            <sap:WorkflowViewStateService.ViewState>
+                                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                              </scg:Dictionary>
+                                                            </sap:WorkflowViewStateService.ViewState>
+                                                          </ui:InvokeWorkflowFile>
+                                                          <FlowStep.Next>
+                                                            <x:Reference>__ReferenceID0</x:Reference>
+                                                          </FlowStep.Next>
+                                                        </FlowStep>
+                                                      </FlowDecision.True>
+                                                      <FlowDecision.False>
+                                                        <FlowStep x:Name="__ReferenceID15">
+                                                          <sap:WorkflowViewStateService.ViewState>
+                                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                              <av:Point x:Key="ShapeLocation">520,1273.6</av:Point>
+                                                              <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                                                              <av:PointCollection x:Key="ConnectorLocation">720,1300 770,1300</av:PointCollection>
+                                                            </scg:Dictionary>
+                                                          </sap:WorkflowViewStateService.ViewState>
+                                                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Creaet Not Found Transaction List workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="System1\Creaet Not Found Transaction List.xaml">
+                                                            <ui:InvokeWorkflowFile.Arguments>
+                                                              <InArgument x:TypeArguments="sd:DataTable" x:Key="in_notFoundList">[io_notFoundList]</InArgument>
+                                                            </ui:InvokeWorkflowFile.Arguments>
+                                                            <sap:WorkflowViewStateService.ViewState>
+                                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                              </scg:Dictionary>
+                                                            </sap:WorkflowViewStateService.ViewState>
+                                                          </ui:InvokeWorkflowFile>
+                                                          <FlowStep.Next>
+                                                            <FlowStep x:Name="__ReferenceID16">
+                                                              <sap:WorkflowViewStateService.ViewState>
+                                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                  <av:Point x:Key="ShapeLocation">770,1265.6</av:Point>
+                                                                  <av:Size x:Key="ShapeSize">200,68.8</av:Size>
+                                                                </scg:Dictionary>
+                                                              </sap:WorkflowViewStateService.ViewState>
+                                                              <Sequence DisplayName="End Process" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                                                                <sap:WorkflowViewStateService.ViewState>
+                                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                                  </scg:Dictionary>
+                                                                </sap:WorkflowViewStateService.ViewState>
+                                                                <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;Done&quot;]" />
+                                                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Premium Collection Process is done&quot;]" />
+                                                              </Sequence>
+                                                            </FlowStep>
+                                                          </FlowStep.Next>
+                                                        </FlowStep>
+                                                      </FlowDecision.False>
+                                                    </FlowDecision>
+                                                  </FlowStep.Next>
+                                                </FlowStep>
+                                              </FlowStep.Next>
+                                            </FlowStep>
+                                          </FlowDecision.True>
+                                          <FlowDecision.False>
+                                            <FlowStep x:Name="__ReferenceID14">
+                                              <sap:WorkflowViewStateService.ViewState>
+                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                  <av:Point x:Key="ShapeLocation">730,493.6</av:Point>
+                                                  <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+                                                  <av:PointCollection x:Key="ConnectorLocation">730,520 620,520</av:PointCollection>
+                                                </scg:Dictionary>
+                                              </sap:WorkflowViewStateService.ViewState>
+                                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Reset Variables workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="System1\Reset Variables.xaml">
+                                                <ui:InvokeWorkflowFile.Arguments>
+                                                  <InOutArgument x:TypeArguments="x:String" x:Key="in_policyNo">[io_policyNo]</InOutArgument>
+                                                  <InOutArgument x:TypeArguments="x:String" x:Key="in_mofAccount">[io_mofAccount]</InOutArgument>
+                                                  <InOutArgument x:TypeArguments="x:String" x:Key="in_code">[io_code]</InOutArgument>
+                                                  <InOutArgument x:TypeArguments="x:String" x:Key="in_gaName">[io_gaName]</InOutArgument>
+                                                  <InOutArgument x:TypeArguments="x:String" x:Key="in_channel">[io_channel]</InOutArgument>
+                                                </ui:InvokeWorkflowFile.Arguments>
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                              </ui:InvokeWorkflowFile>
+                                              <FlowStep.Next>
+                                                <x:Reference>__ReferenceID1</x:Reference>
+                                              </FlowStep.Next>
+                                            </FlowStep>
+                                          </FlowDecision.False>
+                                        </FlowDecision>
+                                      </FlowStep.Next>
+                                    </FlowStep>
+                                  </FlowStep.Next>
+                                </FlowStep>
+                              </FlowStep.Next>
+                            </FlowStep>
+                          </FlowStep.Next>
+                        </FlowStep>
+                      </FlowDecision.True>
+                      <FlowDecision.False>
+                        <x:Reference>__ReferenceID2</x:Reference>
+                      </FlowDecision.False>
+                    </FlowDecision>
+                  </FlowStep.Next>
+                </FlowStep>
+              </FlowStep.Next>
+            </FlowStep>
+          </FlowStep.Next>
+        </FlowStep>
+      </FlowStep.Next>
+    </FlowStep>
+    <x:Reference>__ReferenceID3</x:Reference>
+    <x:Reference>__ReferenceID4</x:Reference>
+    <x:Reference>__ReferenceID5</x:Reference>
+    <x:Reference>__ReferenceID6</x:Reference>
+    <x:Reference>__ReferenceID2</x:Reference>
+    <x:Reference>__ReferenceID7</x:Reference>
+    <x:Reference>__ReferenceID8</x:Reference>
+    <x:Reference>__ReferenceID9</x:Reference>
+    <x:Reference>__ReferenceID10</x:Reference>
+    <x:Reference>__ReferenceID11</x:Reference>
+    <x:Reference>__ReferenceID1</x:Reference>
+    <x:Reference>__ReferenceID12</x:Reference>
+    <x:Reference>__ReferenceID13</x:Reference>
+    <x:Reference>__ReferenceID14</x:Reference>
+    <x:Reference>__ReferenceID15</x:Reference>
+    <x:Reference>__ReferenceID16</x:Reference>
+    <FlowStep x:Name="__ReferenceID17">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">420,103.6</av:Point>
+          <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">520,156.4 520,213.6</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Build Not Found Transactions Table workflow" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="System1\Build Not Found Transactions Table.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InOutArgument x:TypeArguments="sd:DataTable" x:Key="out_notFoundList">[io_notFoundList]</InOutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeWorkflowFile>
+      <FlowStep.Next>
+        <x:Reference>__ReferenceID11</x:Reference>
+      </FlowStep.Next>
+    </FlowStep>
+  </Flowchart>
+</Activity>
